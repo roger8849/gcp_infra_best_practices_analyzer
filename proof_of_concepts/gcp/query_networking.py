@@ -1,53 +1,50 @@
-from google.cloud import compute_v1
+'''
+Explanation:
 
-# Configure the project ID (replace with your project ID)
-project_id = "your-project-id"
+Imports: The script imports the googleapiclient.discovery library for interacting with Google Cloud APIs.
+query_network_configs Function:
+Builds the API Client: Creates a Compute Engine API client using googleapiclient.discovery.build.
+Project ID: Replaces 'your-project-id' with your Google Cloud project ID.
+Lists Networks: Fetches a list of networks within your project.
+Prints Network Details: Iterates through the networks, printing their name, description, and associated subnets.
+if __name__ == '__main__': This block ensures the query_network_configs function is executed when the script is run directly.
+'''
 
-# Create a Compute Engine client
-client = compute_v1.ProjectsClient()
 
-# Define methods to get information on specific resources
+import googleapiclient.discovery
 
-def get_vpc_info(name):
-  """Gets information about a VPC network."""
-  request = client.get_address(project=project_id, region=name)
-  return request.result()
+def query_network_configs():
+    """Queries Google Cloud network configurations and prints results."""
 
-def get_subnet_info(region, name):
-  """Gets information about a subnet."""
-  request = client.get_subnetwork(project=project_id, region=region, subnetwork=name)
-  return request.result()
+    compute = googleapiclient.discovery.build('compute', 'v1')
 
-def get_firewall_info(name):
-  """Gets information about a firewall rule."""
-  request = client.get_firewall(project=project_id, firewall=name)
-  return request.result()
+    # Replace 'your-project-id' with your actual Google Cloud project ID
+    # project = 'your-project-id' 
+    project = 'castilla-lived' 
 
-# List VPC networks
-print("VPC Networks:")
-for network in client.list_aggregated_addresses(project=project_id).addresses:
-  # Extract VPC network name from the region name
-  name = network.name.split("/")[-1]
-  vpc_info = get_vpc_info(name)
-  print(f"- Name: {vpc_info.name}")
-  print(f"  CIDR Range: {vpc_info.ip_cidr_range}")
+    # Get a list of networks 
+    networks_result = compute.networks().list(project=project).execute()
+    networks = networks_result.get('items', [])
 
-# List subnets
-print("\nSubnets:")
-for region, subnets in client.list_subnetworks(project=project_id).subnetworks.items():
-  for subnet in subnets:
-    subnet_info = get_subnet_info(region, subnet.name)
-    print(f"- Region: {region}")
-    print(f"  Name: {subnet_info.name}")
-    print(f"  CIDR Range: {subnet_info.ip_cidr_range}")
+    if not networks:
+        print('No networks found.')
+    else:
+        print('Networks:')
+        for network in networks:
+            # print(f"- Name: {network['name']}")
+            # print(f"  Description: {network.get('description')}")
+            # print(f"  Subnets:")
+            print(network)
 
-# List firewall rules
-print("\nFirewall Rules:")
-for rule in client.list_firewalls(project=project_id).firewalls:
-  firewall_info = get_firewall_info(rule.name)
-  print(f"- Name: {firewall_info.name}")
-  print(f"  Network: {firewall_info.network}")
-  print(f"  Allows: {firewall_info.allowed}")
+            # Get details for each subnet associated with the network
+            subnets_result = compute.subnetworks().list(project=project, region='us-central1').execute()
+            subnets = subnets_result.get('items', [])
 
-# Remember to replace "your-project-id" with your actual project ID
-print("\n**Note:** Remember to replace 'your-project-id' with your actual project ID.")
+            for subnet in subnets:
+                # print(f"    - {subnet['name']}, CIDR: {subnet['ipCidrRange']}")
+                print(subnet)
+
+            print("------------------------")
+
+if __name__ == '__main__':
+    query_network_configs()

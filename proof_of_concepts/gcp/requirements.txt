@@ -1,2 +1,6 @@
 google-cloud-iam
 google-cloud-compute
+google-api-python-client
+google-cloud-secret-manager
+
+

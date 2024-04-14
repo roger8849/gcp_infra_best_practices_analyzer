@@ -1,0 +1,12 @@
+#  AI dependencies
+langchain
+langchain_experimental
+langchain-community
+openai
+libmagic
+unstructured
+tiktoken
+
+# Google Cloud
+google-api-python-client
+google-cloud-secret-manager
