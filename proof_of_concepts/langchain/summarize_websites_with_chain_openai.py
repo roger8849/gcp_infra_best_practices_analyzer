@@ -8,31 +8,22 @@ from langchain.document_loaders import UnstructuredURLLoader
 
 from google.cloud import secretmanager
 
+def access_secret(project_id, secret_id, version_id="latest"):
+    """Accesses the payload for the given secret version."""
 
-
-def access_secret_version(project_id, secret_id, version_id):
     # Create the Secret Manager client.
     client = secretmanager.SecretManagerServiceClient()
 
     # Build the resource name of the secret version.
-    name = client.secret_version_path(project_id, secret_id, version_id)
+    secret_path = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
 
     # Access the secret version.
-    response = client.access_secret_version(request={"name": name})
+    response = client.access_secret_version(request={"name": secret_path})
 
-    # Verify payload checksum.
-    if response.payload.data_crc32c != response.payload.data_crc32c:
-        print("Data corruption detected.")
-        return
+    # Extract the secret payload.
+    secret_payload = response.payload.data.decode("utf-8")
 
-    # Print the secret payload.
-    #
-    # WARNING: Do not print the secret in a production .environment - this
-    # snippet is showing how to access the secret material.
-    payload = response.payload.data.decode("UTF-8")
-    print("Plaintext: {}".format(payload))
-
-    return payload
+    return secret_payload
 
 
 # List of urls as parameter to
@@ -78,7 +69,7 @@ print(len(docs))
 print(docs[0].page_content)
 
 
-openai_api_key = access_secret_version('castilla-lived', 'open_ai_api_key')
+openai_api_key = access_secret(project_id='castilla-lived', secret_id='open_ai_api_key')
 
 
 llm = OpenAI(temperature=0, openai_api_key=openai_api_key)
@@ -93,5 +84,6 @@ map_reduce_chain = load_summarize_chain(llm, chain_type="map_reduce")
 # docs - list of documents to summarize
 output = map_reduce_chain.run(docs)
 # install tiktoken
-
+print('######################################')
+print('final summary of the entire web page')
 print(output)
