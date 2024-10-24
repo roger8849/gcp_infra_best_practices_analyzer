@@ -20,7 +20,7 @@ def query_network_configs():
 
     # Replace 'your-project-id' with your actual Google Cloud project ID
     # project = 'your-project-id' 
-    project = 'castilla-lived' 
+    project = 'castilla-host-project' 
 
     # Get a list of networks 
     networks_result = compute.networks().list(project=project).execute()
