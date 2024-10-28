@@ -44,14 +44,15 @@ def get_project_id() -> str:
                 return project_id
             else:
                 logging.error(f"The project id {project_id} has an invalid format.")
+                print()
         except ValueError:
             logging.error("Invalid project ID format.")
         except KeyboardInterrupt:
-            print("\nInput canceled.")
+            logging.error("\n Project id Input canceled.")
             return None
 
 
-def get_all_regions(project_id="castilla-lived"):
+def get_all_regions():
     """
     Retrieves a list of all regions available in a given project.
 
@@ -71,5 +72,5 @@ def get_all_regions(project_id="castilla-lived"):
         print(regions)
         return regions
     except Exception as e:
-        print(f"Error getting regions: {e}")
+        logging.error(f"Error getting regions: {e}")
         return []

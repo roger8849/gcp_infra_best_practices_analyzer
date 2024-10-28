@@ -1,4 +1,4 @@
-from google.cloud import secretmanager
+from google.cloud.secretmanager import SecretManagerServiceClient
 
 
 
@@ -15,7 +15,7 @@ def access_secret(project_id, secret_id, version_id="latest"):
             The secret value as a string, or None if the secret is not found.
     """
 
-    client = secretmanager.SecretManagerServiceClient()
+    client = SecretManagerServiceClient()
 
     # Build the resource name of the secret version.
     secret_path = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"

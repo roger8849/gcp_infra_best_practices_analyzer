@@ -4,6 +4,7 @@ from inspect import _void
 import utils.app.console_utils as cu
 import utils.gcp.organization_utils as ou
 from models.application_configuration import ApplicationConfiguration
+import utils.app.llm_utils as llmu
 
 
 class InitUtils:
@@ -35,7 +36,10 @@ class InitUtils:
 
     def init_application_configuration(self) -> ApplicationConfiguration:
         org_id = ou.get_organization_id()
-        project_id = None 
+        project_id = ou.get_project_id() 
+        llm_api_key = llmu.get_llm_api_key(project_id)
 
-        return ApplicationConfiguration(org_id, project_id, )
+        self.application_configuration = ApplicationConfiguration(org_id, project_id, llm_api_key)
+
+        print(self.application_configuration)
 
