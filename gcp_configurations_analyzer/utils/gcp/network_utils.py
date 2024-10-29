@@ -17,9 +17,9 @@ def query_network_configs(project="castilla-lived"):
     else:
         print('Networks:')
         for network in networks:
-            # print(f"- Name: {network['name']}")
-            # print(f"  Description: {network.get('description')}")
-            # print(f"  Subnets:")
+            print(f"- Name: {network['name']}")
+            print(f"  Description: {network.get('description')}")
+            print(f"  Subnets:")
 
             print('############################################')
             print(network)

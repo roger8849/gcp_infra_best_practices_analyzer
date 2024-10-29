@@ -1,7 +1,16 @@
-#  AI dependencies
+# Other utilities
+ipython
 
+#  AI dependencies
+langchain_openai
+langchain_community
+langchain_core
+langgraph
+requests
+beautifulsoup4
 
 # Google Cloud
 google-api-python-client
 google-cloud-secret-manager
 google-cloud-compute
+google-cloud-resource-manager

@@ -50,3 +50,24 @@ This structure is organized and easy to navigate, with each component of the app
 <!--The venv directory is a virtual environment for the application. -->
 
 This structure is just a recommendation, and you can adapt it to fit the specific needs of your project.
+
+
+
+# Prerequisites
+
+## Graphviz
+Install graphviz
+
+```
+brew install graphviz
+```
+
+Then install pygraphviz using pip package manager
+
+```
+python3 -m pip install -U --no-cache-dir  \
+            --config-settings="--global-option=build_ext" \
+            --config-settings="--global-option=-I$(brew --prefix graphviz)/include/" \
+            --config-settings="--global-option=-L$(brew --prefix graphviz)/lib/" \
+            pygraphviz
+```
