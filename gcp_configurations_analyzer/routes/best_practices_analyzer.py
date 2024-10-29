@@ -22,11 +22,9 @@ def get_all_projects(state: GCPBestPracticesState):
 
 def get_all_networks(state: GCPBestPracticesState):
     projects_id = state['projects']
-    # networks = []
+
     networks = firewall_rules = subnets = []
     for id in projects_id:
-        #     networks.append(nu.query_network_configs(id))
-        # return {'networks': networks} if networks else {'networks': []}
         project_network_information = nu.get_project_network_information(id)
         if project_network_information and project_network_information['networks']:
             networks.append(project_network_information['networks'])
@@ -57,8 +55,7 @@ def build_graph() -> StateGraph:
     builder.add_edge(START, get_all_projects.__name__)
     # builder.add_edge(get_init_utils.__name__, get_available_regions.__name__)
     builder.add_edge(get_all_projects.__name__, get_all_networks.__name__)
-    builder.add_edge(get_all_projects.__name__, get_all_vpn_tunnels.__name__)
-    builder.add_edge(get_all_networks.__name__, END)
+    builder.add_edge(get_all_networks.__name__, get_all_vpn_tunnels.__name__)
     builder.add_edge(get_all_vpn_tunnels.__name__, END)
 
     return builder
