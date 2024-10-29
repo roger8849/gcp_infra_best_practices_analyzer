@@ -79,7 +79,7 @@ def get_all_regions(project_id: str) -> list:
 from google.cloud import resourcemanager_v3
 
 
-def get_folders(parent_id="organizations/ORGANIZATION_ID", folders=None):
+def get_folders(parent_id, folders=None):
 
     # This function will return a list of folder_id for all the folders and
     # subfolders respectively
@@ -115,13 +115,13 @@ def search_projects(folder_id):
     return search_result
 
 
-def list_projects():
+def list_projects(organization_id : str) -> list:
     # will returns the list of all active projects(project_id)
-
     active_project = []
-    for folders in get_folders(parent_id="organizations/ORGANIZATION_ID", folders=None):
+    for folders in get_folders(parent_id=f"organizations/{organization_id}", folders=None):
         for projects in search_projects(folders):
-            if str(projects.state) == "State.ACTIVE":
+            if str(projects.state) == "1":
+                # print(str(projects.state))
                 active_project.append(projects.project_id)
 
     return active_project
