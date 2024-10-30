@@ -56,8 +56,30 @@ def get_project_network_information(project_id):
     try:
         network_client = compute_v1.NetworksClient()
         networks = network_client.list(project=project_id)
+        network_pretty_config = ''
+        # cu.print_heading1_message(str(networks))
+        for net in networks:
+            network_pretty_config = \
+                ''.join[network_pretty_config,
+                '-' * 50, '\n',
+                'Network name: ', net.name, '\n',
+                'Auto create subnetworks: ', net.auto_create_subnetworks, '\n',
+                'Network creation timestamp', net.creation_timestamp, '\n',
+                'Network description', net.description, '\n',
+                'Network Enable ULA Internal IPv6', net.enable_ula_internal_ipv6, '\n',
+                'Network Firewall Policy', net.firewall_policy, '\n',
+                'Network Gateway', net.gateway_i_pv4, '\n',
+                'Network Ipv4 Range', net.I_pv4_range, '\n',
+                'Network id', net.id, '\n',
+                'Network Internal IPv6 range', net.internal_ipv6_range, '\n',
+                'Network kind', net.kind, '\n',
+                'Network MTU', net.mtu, '\n',
+                'Network Firewall Policy enforcer', net.network_firewall_policy_enforcement_order, '\n',
+                'Network Peerings', net.peerings, '\n',
+                'Network Routing config', net.routing_config, '\n',
+                'Network Self link', net.self_link, '\n'
+            ]
 
-        cu.print_heading1_message(str(networks))
 
         # print(networks)
         # networks = [network for network in query_networks if query_networks]
@@ -89,7 +111,8 @@ def get_project_network_information(project_id):
         return {
             "firewall_rules": firewall_rules,
             "networks": networks,
-            "subnets": subnets,
+            "network_pretty_config": network_pretty_config,
+            "subnets": subnets
         }
 
     except Exception as e:
@@ -106,7 +129,6 @@ def get_vpn_tunnels(project_id):
         for tunnel in vpn_tunnels:
             tunnels.append(tunnel)
             print(f"Name: {tunnel.name}")
-            # print(f"Network: {tunnel.network}")
             print(f"Region: {tunnel.region}")
             print(f"Peer IP: {tunnel.peer_ip}")
             print(f"Router: {tunnel.router}")

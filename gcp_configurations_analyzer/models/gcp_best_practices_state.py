@@ -3,9 +3,32 @@ from typing_extensions import TypedDict
 
 
 class GCPBestPracticesState(TypedDict):
-    projects : List[str] # Projects inside organization.
-    network_projects: list
-    networks : list
-    firewall_rules : list
-    subnets : list
-    vpn_tunnels: list
+    projects: list # Projects inside organization.
+    network_projects: list  # Projects with VPCs configured.
+    networks: list  # List of VPC networks
+    firewall_rules: list  # List of firewall rules
+    subnets: list  # List of subnets
+    vpn_tunnels: list  # List of vpn_tunnels
+    vpc_best_practices: (
+        str  # Summarized string with the documentation of the VPC best practices.
+    )
+    vpn_best_practices: (
+        str  # Summarzed string with the documentation of the VPN best practices.
+    )
+
+    network_pretty_config: (
+        str # Contains a pretty string with the network configuration
+    )
+
+    firewall_pretty_config: (
+        str # Contains a pretty string with the firewall rules configuration
+    )
+
+    subnet_pretty_config: (
+        str # Contains a pretty string with the subnet configuration
+    )
+
+    vpn_pretty_config: (
+        str # Contains a pretty string with the VPN configuration.
+    )
+

@@ -48,7 +48,7 @@ class InitUtils:
         llm_api_key = appu.get_api_key(project_id, "llm_api_key")
         langchain_config = appu.setup_langsmith_tracking(project_id)
         InitUtils.application_configuration = ApplicationConfiguration()
-        
+
         if langchain_config['track']:
             langchain_api_key = langchain_config['langchain_api_key']
             InitUtils._set_env("LANGCHAIN_TRACING_V2", "true")
@@ -63,6 +63,7 @@ class InitUtils:
         InitUtils.application_configuration.region_list = ou.get_all_regions(project_id)
 
         InitUtils.application_configuration.llm = ChatOpenAI(model="gpt-4o", temperature=0, openai_api_key=llm_api_key)
+        
     def get_application_configuration() -> ApplicationConfiguration:
         return InitUtils.application_configuration
 

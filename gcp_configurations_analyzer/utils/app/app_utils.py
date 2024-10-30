@@ -85,13 +85,13 @@ def setup_langsmith_tracking(project_id) -> dict:
 
 def extract_text_from_url(url):
     """
-    Extracts the text content from a given URL.
+        Extracts the text content from a given URL.
 
-    Args:
-    url: The URL to extract text from.
+        Args:
+        url: The URL to extract text from.
 
-    Returns:
-    The extracted text content as a string.
+        Returns:
+        The extracted text content as a string.
     """
     try:
         response = requests.get(url)
