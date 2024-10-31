@@ -20,7 +20,7 @@ class GCPBestPracticesState(TypedDict):
         str # Contains a pretty string with the network configuration
     )
 
-    firewall_pretty_config: (
+    firewall_rules_pretty_config: (
         str # Contains a pretty string with the firewall rules configuration
     )
 

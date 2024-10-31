@@ -28,21 +28,28 @@ def get_all_networks(state: GCPBestPracticesState):
     projects_id = state["projects"]
 
     networks = firewall_rules = subnets = []
+    networks_pretty_config = firewall_rules_pretty_config = subnets_pretty_config = ""
     network_projects = []
     for id in projects_id:
         project_network_information = nu.get_project_network_information(id)
-        if project_network_information and project_network_information["networks"]:
+        if project_network_information and project_network_information["networks"] and project_network_information["networks"]._response.items:
             networks.append(project_network_information["networks"])
+            networks_pretty_config = ''.join[networks_pretty_config, project_network_information["network_pretty_config"]]
             firewall_rules.append(project_network_information["firewall_rules"])
+            firewall_rules_pretty_config = ''.join[firewall_rules_pretty_config, project_network_information["firewall_rules_pretty_config"]]
             subnets.append(project_network_information["subnets"])
+            subnets_pretty_config = ''.join[subnets_pretty_config, project_network_information["subnets_pretty_config"]]
             network_projects.append(id)
 
     return {
         "networks": networks,
+        "networks_pretty_config": networks_pretty_config,
         "firewall_rules": firewall_rules,
+        "firewall_rules_pretty_config": firewall_rules_pretty_config,
         "subnets": subnets,
+        "subnets_pretty_config": subnets_pretty_config,
         "network_projects": network_projects,
-    }
+    } 
 
 
 def get_all_vpn_tunnels(state: GCPBestPracticesState):
@@ -52,7 +59,7 @@ def get_all_vpn_tunnels(state: GCPBestPracticesState):
         project_tunnels = nu.get_vpn_tunnels(id)
         if project_tunnels:
             tunnels.append(project_tunnels)
-    return {"tunnels": tunnels}
+    return {"vpn_tunnels": tunnels}
 
 
 def summarize_vpc_best_practices(state: GCPBestPracticesState):
