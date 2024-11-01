@@ -16,7 +16,7 @@ class GCPBestPracticesState(TypedDict):
         str  # Summarzed string with the documentation of the VPN best practices.
     )
 
-    network_pretty_config: (
+    networks_pretty_config: (
         str # Contains a pretty string with the network configuration
     )
 
@@ -24,11 +24,23 @@ class GCPBestPracticesState(TypedDict):
         str # Contains a pretty string with the firewall rules configuration
     )
 
-    subnet_pretty_config: (
+    subnets_pretty_config: (
         str # Contains a pretty string with the subnet configuration
     )
 
     vpn_pretty_config: (
         str # Contains a pretty string with the VPN configuration.
+    )
+    
+    vpc_action_items: (
+        str # Contains the best practices recommended by the llm model.
+    )
+    
+    vpn_action_items: (
+        str # Contains the best practices recommended by the llm model.
+    )
+
+    final_report: (
+        str # Contains the final report in markdown
     )
 

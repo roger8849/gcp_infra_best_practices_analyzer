@@ -1,6 +1,8 @@
+import time
+from markdown import markdown
+import pdfkit
 
-
-report_template = '''
+report_template = """
 
 # Google Cloud Network Configuration Analysis Report
 
@@ -98,11 +100,13 @@ This section analyzes your current network configuration based on the best pract
     *   **Document the purpose of each subnet clearly.** This helps with network management and troubleshooting.
     *   **Consider using subnet aliases for internal DNS resolution.**
 
+{vpc_action_items}
+
+
 *   **VPN Analysis:**
     *   **Review the VPN configuration to ensure strong encryption and authentication are used.**
     *   **If critical, consider implementing redundant VPN tunnels for high availability.**
-
-{analysis}
+{vpn_action_items}
 
 ## Next Steps
 
@@ -114,6 +118,43 @@ Based on the analysis, the following next steps are recommended:
 *   **Review and enhance VPN security and availability.**
 *   **Regularly review and update your network configuration to align with Google Cloud's best practices and your evolving needs.**
 
-{next_steps}
 
-'''
+
+"""
+
+
+def generate_filename() -> str:
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    return f"final_report_{timestr}.md"
+
+
+def markdown_to_pdf(markdown_file, pdf_file):
+    """
+    Converts a Markdown file to a PDF file.
+
+    Args:
+      markdown_file: Path to the Markdown file.
+      pdf_file: Path to the output PDF file.
+    """
+
+    try:
+        # Read the Markdown content
+        with open(markdown_file, "r") as f:
+            markdown_text = f.read()
+
+        # Convert Markdown to HTML
+        html = markdown(markdown_text)
+
+        # Convert HTML to PDF using pdfkit
+        pdfkit.from_string(html, pdf_file)
+
+        print(f"Successfully converted {markdown_file} to {pdf_file}")
+
+    except Exception as e:
+        print(f"Error converting Markdown to PDF: {e}")
+
+
+if __name__ == "__main__":
+    markdown_file = "report.md"  # Replace with your Markdown file path
+    pdf_file = "report.pdf"  # Replace with your desired PDF file path
+    markdown_to_pdf(markdown_file, pdf_file)

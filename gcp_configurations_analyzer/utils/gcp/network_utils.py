@@ -115,14 +115,9 @@ def get_project_network_information(project_id):
                 ]
             )
 
-        # print(networks)
-        # networks = [network for network in query_networks if query_networks]
-        # query_networks = network_client.list(project=project_id)
-        # networks = [network for network in query_networks if query_networks]
+
 
         firewall_client = compute_v1.FirewallsClient()
-        # query_firewall_rules = firewall_client.list(project=project_id)
-        # firewall_rules = [firewall for firewall in query_firewall_rules if query_firewall_rules]
         firewall_rules = firewall_client.list(project=project_id)
         firewall_rules_pretty_config = str()
         for fwr in firewall_rules:
@@ -164,8 +159,7 @@ def get_project_network_information(project_id):
                     "Firewall rule disabled: ",
                     str(fwr.disabled),
                     "\n" "-" * 50,
-                    "\n",
-                    # 'Firewall self link: ', fwr.self_link, '\n'
+                    "\n"
                 ]
             )
         cu.print_heading1_message(firewall_rules_pretty_config)
@@ -202,8 +196,6 @@ def get_project_network_information(project_id):
                     "Subnet external ipv6 prefix",
                     str(subnet.external_ipv6_prefix),
                     "\n",
-                    # "Subnet region",
-                    # str(subnet.region),
                     "-" * 50,
                     "\n",
                 ]
@@ -226,15 +218,43 @@ def get_project_network_information(project_id):
 def get_vpn_tunnels(project_id):
     vpn_client = compute_v1.VpnTunnelsClient()
     tunnels = []
+    vpn_pretty_config = ""
     for region_name in InitUtils.application_configuration.region_list:
         vpn_tunnels = vpn_client.list(project=project_id, region=region_name)
         print(f"VPN Tunnels in {region_name}:")
         for tunnel in vpn_tunnels:
             tunnels.append(tunnel)
-            print(f"Name: {tunnel.name}")
-            print(f"Region: {tunnel.region}")
-            print(f"Peer IP: {tunnel.peer_ip}")
-            print(f"Router: {tunnel.router}")
-            print(f"Status: {tunnel.status}")
-            print("-" * 40)
-    return tunnels
+            vpn_pretty_config = "".join(
+                [
+                    str(vpn_pretty_config),
+                    "-" * 50,
+                    "\n",
+                    "Tunnel name",
+                    str(tunnel.name),
+                    "\n",
+                    "Tunnel IKE Version: ",
+                    str(tunnel.ike_version),
+                    "\n",
+                    "Tunnel Peer ip: ",
+                    str(tunnel.peer_ip),
+                    "\n",
+                    "Tunnel status: ",
+                    str(tunnel.status),
+                    "\n",
+                    "Tunnel Shared secret: ",
+                    str(tunnel.shared_secret ),
+                    "\n",
+                    "Tunnel Peer GCP Gateway: ",
+                    str(tunnel.peer_gcp_gateway ),
+                    "\n",
+                    "Tunnel Kind: ",
+                    str(tunnel.kind),
+                    "\n",
+                    "-" * 50,
+                    "\n",
+                ]
+            )
+    return {
+        "vpn_tunnels": tunnels,
+        "vpn_pretty_config": vpn_pretty_config,
+    }

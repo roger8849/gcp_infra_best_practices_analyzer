@@ -1,5 +1,7 @@
 # Other utilities
 ipython
+markdown
+pdfkit
 
 #  AI dependencies
 langchain_openai
