@@ -2,6 +2,8 @@
 ipython
 markdown
 pdfkit
+pylint
+graphviz
 
 #  AI dependencies
 langchain_openai

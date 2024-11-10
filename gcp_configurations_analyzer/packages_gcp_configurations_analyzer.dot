@@ -1,0 +1,6 @@
+digraph "packages_gcp_configurations_analyzer" {
+rankdir=BT
+charset="utf-8"
+"gcp_configurations_analyzer" [color="black", label=<gcp_configurations_analyzer>, shape="box", style="solid"];
+"gcp_configurations_analyzer.app" [color="black", label=<gcp_configurations_analyzer.app>, shape="box", style="solid"];
+}

@@ -11,7 +11,9 @@ import os
 
 class InitUtils:
     application_configuration : ApplicationConfiguration
-    
+    def __init__(self) -> None:
+        pass
+
     @staticmethod
     def start_app_init() -> _void:
         InitUtils.init_logging()
