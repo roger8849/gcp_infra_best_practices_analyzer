@@ -9,7 +9,7 @@ class App:
 
     def main(self):
         self.init_utils.start_app_init()
-        BestPracticesAnalyzer.start_analysis()
+        self.best_practices_analyzer.start_analysis()
 
 if __name__ == "__main__":
     app = App()
