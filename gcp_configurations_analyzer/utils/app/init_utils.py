@@ -1,10 +1,10 @@
 import logging
 from inspect import _void
 
-import utils.app.console_utils as cu
-import utils.gcp.organization_utils as ou
+from utils.app.console_utils import ConsoleUtils as cu
+from utils.gcp.organization_utils import OrganizationUtils as ou
 from models.application_configuration import ApplicationConfiguration
-import utils.app.app_utils as appu
+from utils.app.app_utils import AppUtils as appu
 from langchain_openai import ChatOpenAI
 import os
 

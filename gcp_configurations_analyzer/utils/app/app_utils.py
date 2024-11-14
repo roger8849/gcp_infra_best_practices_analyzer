@@ -4,7 +4,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-import utils.gcp.secret_manager_utils as smu
+from utils.gcp.secret_manager_utils import SecretManagerUtils as smu
 
 class AppUtils:
     @staticmethod

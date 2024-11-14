@@ -1,16 +1,16 @@
-from langgraph.graph import START, END, StateGraph
-from models.gcp_best_practices_state import GCPBestPracticesState
-
-import utils.gcp.organization_utils as ou
-from utils.app.init_utils import InitUtils
-import utils.gcp.network_utils as nu
-import utils.app.app_utils as au
-import utils.app.report_utils as ru
-
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
-from langchain_openai import ChatOpenAI
-
 import os
+
+from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_openai import ChatOpenAI
+from langgraph.graph import START, END, StateGraph
+
+from models.gcp_best_practices_state import GCPBestPracticesState
+from utils.app.app_utils import AppUtils as au
+from utils.app.console_utils import ConsoleUtils as cu
+from utils.app.init_utils import InitUtils
+from utils.app.report_utils import ReportUtils as ru
+from utils.gcp.network_utils import NetworkUtils as nu
+from utils.gcp.organization_utils import OrganizationUtils as ou
 
 
 class BestPracticesAnalyzer:
@@ -206,7 +206,7 @@ class BestPracticesAnalyzer:
 
     @staticmethod
     def write_final_report(state: GCPBestPracticesState):
-        final_report = ru.report_template.format(
+        final_report = ru.get_report_template().format(
             vpc_config=state["networks_pretty_config"],
             firewall_rules_config=state["firewall_rules_pretty_config"],
             subnets_config=state["subnets_pretty_config"],
@@ -219,7 +219,13 @@ class BestPracticesAnalyzer:
         md_filename = ru.generate_filename()
         f = open(f"./reports/{md_filename}", "w")
         f.write(final_report)
+
+        absolute_path = os.path.abspath(f.name)
         f.close()
+
+        cu.print_heading1_message(f'Analisys ended find the full report at {absolute_path}')
+
+
         ru.markdown_to_pdf(f"./reports/{md_filename}", f"./reports/{md_filename}.pdf")
         return {"final_report": final_report}
 

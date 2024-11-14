@@ -1,4 +1,4 @@
-import utils.app.console_utils as cu
+from utils.app.console_utils import ConsoleUtils as cu
 from google.cloud import compute_v1
 from utils.app.init_utils import InitUtils
 import traceback

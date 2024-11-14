@@ -1,9 +1,12 @@
 import time
+
+from aiohttp.web_routedef import static
 from markdown import markdown
 import pdfkit
 class ReportUtils:
-    def __init__(self):
-        self.report_template = """
+    @staticmethod
+    def get_report_template() -> str:
+        return """
         
         # Google Cloud Network Configuration Analysis Report
         
@@ -137,8 +140,7 @@ class ReportUtils:
         *   **Review and enhance VPN security and availability.**
         *   **Regularly review and update your network configuration to align with Google Cloud's best practices and your evolving needs.**
         
-        
-        
+      
         """
     @staticmethod
     def generate_filename() -> str:
