@@ -39,7 +39,11 @@ This section presents the details of your current network configuration.
 | deny-all-ingress | Ingress | Deny | 65534 | 0.0.0.0/0 | all | all |
 | ... | ... | ... | ... | ... | ... | ... |
 
+```
+
 {firewall_rules_config}
+
+```
 
 ### Subnets
 
@@ -49,8 +53,11 @@ This section presents the details of your current network configuration.
 | subnet-2 | vpc-2 | europe-west1 | 192.168.1.0/24 | Database servers |
 | ... | ... | ... | ... | ... |
 
+```
+
 {subnets_config}
 
+```
 
 ### VPN Connectivity
 
@@ -59,7 +66,12 @@ This section presents the details of your current network configuration.
 | vpn-gateway-1 | us-central1 | On-premises network | Site-to-site VPN |
 | ... | ... | ... | ... |
 
+```
+
 {vpn_config}
+
+```
+
 
 ## Best Practices
 
@@ -73,7 +85,13 @@ This section outlines Google Cloud's best practices for VPC and VPN configuratio
 *   **Use hierarchical firewall policies:** For centralized management and enforcement of firewall rules.
 *   **Implement network security best practices:**  Such as DDoS protection, security scanning, and intrusion detection.
 
+
+```
+
 {vpc_best_practices}
+
+```
+
 
 ### VPN Best Practices
 
@@ -81,7 +99,12 @@ This section outlines Google Cloud's best practices for VPC and VPN configuratio
 *   **High availability:** Configure redundant VPN tunnels for failover.
 *   **Monitor VPN performance:** Track throughput, latency, and connection stability.
 
+```
+
 {vpn_best_practices}
+
+```
+
 
 ## Analysis
 
@@ -100,13 +123,23 @@ This section analyzes your current network configuration based on the best pract
     *   **Document the purpose of each subnet clearly.** This helps with network management and troubleshooting.
     *   **Consider using subnet aliases for internal DNS resolution.**
 
+```
+
 {vpc_action_items}
+
+```
 
 
 *   **VPN Analysis:**
     *   **Review the VPN configuration to ensure strong encryption and authentication are used.**
     *   **If critical, consider implementing redundant VPN tunnels for high availability.**
+
+```
+
 {vpn_action_items}
+
+```
+
 
 ## Next Steps
 
