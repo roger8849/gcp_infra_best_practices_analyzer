@@ -7,6 +7,11 @@ libmagic
 unstructured
 tiktoken
 
+langchain-google-vertexai
+langserve[all]
+google-cloud-aiplatform
+
+
 # Google Cloud
 google-api-python-client
 google-cloud-secret-manager
