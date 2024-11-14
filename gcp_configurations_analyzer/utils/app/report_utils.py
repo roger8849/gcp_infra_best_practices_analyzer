@@ -26,13 +26,7 @@ class ReportUtils:
         This section presents the details of your current network configuration.
         
         ### VPCs
-        
-        | VPC Name | Description | Auto-Create Subnets | Routing Mode | MTU | Firewall Policy |
-        |---|---|---|---|---|---|
-        | vpc-1 | Default VPC | True | REGIONAL | 1460 | deny-all-ingress | 
-        | vpc-2 | Production VPC | False | GLOBAL | 1460 | allow-internal-only | 
-        | ... | ... | ... | ... | ... | ... |
-        
+              
         ```
 
         {vpc_config}
@@ -40,13 +34,7 @@ class ReportUtils:
         ```
         
         ### Firewall Rules
-        
-        | Firewall Rule Name | Direction | Action | Priority | Source | Destination | Protocols/Ports |
-        |---|---|---|---|---|---|---|
-        | allow-ssh | Ingress | Allow | 1000 | 0.0.0.0/0 | 10.10.10.0/24 | tcp:22 |
-        | deny-all-ingress | Ingress | Deny | 65534 | 0.0.0.0/0 | all | all |
-        | ... | ... | ... | ... | ... | ... | ... |
-        
+             
         ```
         
         {firewall_rules_config}
