@@ -4,6 +4,7 @@ markdown
 pdfkit
 pylint
 graphviz
+wkhtmltopdf
 
 #  AI dependencies
 langchain_openai

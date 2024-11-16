@@ -160,7 +160,8 @@ class NetworkUtils:
                         "\n",
                         "Firewall rule disabled: ",
                         str(fwr.disabled),
-                        "\n" "-" * 50,
+                        "\n",
+                        "-" * 50,
                         "\n"
                     ]
                 )
