@@ -24,7 +24,7 @@ Este repositorio contiene el resultado y los entregables del trabajo de Grado mo
 
 ## Introducción
 
-This repository serves as a collection of materials related to the dissertation research that investigates best practices for analyzing infrastructure configurations. The thesis proposes methodologies leveraging Language Models (LLMs) implemented in Python, Langchain, and other relevant technologies.
+Este repositorio contiene una colección de materiales relacionados con la investigación de la tesis que estudia las mejores prácticas para analizar configuraciones de infraestructura. La tesis propone metodologías que aprovechan los Modelos de Lenguaje (LLMs) implementados en Python, Langchain y otras tecnologías relevantes.
 
 ---
 
