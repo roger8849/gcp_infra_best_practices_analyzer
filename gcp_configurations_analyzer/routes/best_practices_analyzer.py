@@ -150,24 +150,34 @@ class BestPracticesAnalyzer:
         firewall_rules_pretty_config = state["firewall_rules_pretty_config"]
         subnets_pretty_config = state["subnets_pretty_config"]
 
-        system_instructions = f"""
-            You're a GCP Specialist, now this is the summarized text of the best practices recommended for VPC and network management in GC:.
+        system_instructions = """
+            You are a GCP Specialist with deep expertise in Google Cloud's networking services. 
+            Your task is to provide actionable, specific, and configuration-aware recommendations for improving a VPC setup.
+            Base your advice on the provided best practices and the detailed configuration information.
         """
+
         human_instructions = f"""
-            Taking into account the summarized VPC and network management best practices:
-            \"{vpc_best_practices}\""
-            
-            Also taking into account your own experience, provide action items and recommendations for my current:
-            VPC CONFIGURATION:
-            {network_pretty_config}
-            FIREWALL RULES:
-            {firewall_rules_pretty_config}
-            SUBNETS:
-            {subnets_pretty_config}
-    
-            What action items can I execute to improve my configuration based on the VPC Best practices? 
-    
-            Be specific with my configuration do not give me generic recommendation please analyze my current configuration provided above.
+            Review the following summarized VPC and network management best practices:
+            \"\"\"{vpc_best_practices}\"\"\"
+
+            Analyze the current VPC setup provided below and identify specific action items for improvement based on these best practices:
+            - **VPC Configuration**: 
+              {network_pretty_config}
+            - **Firewall Rules**: 
+              {firewall_rules_pretty_config}
+            - **Subnets**: 
+              {subnets_pretty_config}
+
+            Guidelines for your recommendations:
+            - Be specific and directly reference the provided configuration.
+            - Highlight any misalignments with the best practices.
+            - Propose clear, actionable steps to improve the configuration.
+            - Avoid generic suggestions; tailor your advice to the provided setup.
+
+            Provide your response in the following format:
+            1. **Issue/Observation**: Describe the specific issue or potential improvement.
+            2. **Recommendation**: Provide a clear action item to address the issue.
+            3. **Rationale**: Explain how this aligns with the best practices.
         """
 
         vpc_action_items = self.llm.invoke(
